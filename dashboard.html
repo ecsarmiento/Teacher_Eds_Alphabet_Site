@@ -42,13 +42,13 @@
     </div>
 
     <script>
-        // ✅ Your actual PHP hosting domain — already filled in!
         const PHP_HOST = "https://eds.page.gd";
 
-        // Check if user is signed in
-        fetch(`${PHP_HOST}/check_session.php`)
+        fetch(`${PHP_HOST}/check_session.php`, {
+            credentials: 'include'  // ✅ Critical — sends session cookie
+        })
         .then(res => {
-            if (!res.ok) throw new Error("Server not reachable");
+            if (!res.ok) throw new Error("Server unreachable");
             return res.json();
         })
         .then(data => {
@@ -63,7 +63,7 @@
         })
         .catch(err => {
             console.error("Session check failed:", err);
-            alert("❌ Cannot connect to server.\nMake sure these files exist on eds.page.gd:\n- check_session.php\n- login.php\n- register.php\n- signout.php");
+            alert("❌ Cannot connect to server.\nError: " + err.message);
         });
     </script>
 </body>
