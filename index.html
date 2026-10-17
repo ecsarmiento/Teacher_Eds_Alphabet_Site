@@ -45,7 +45,7 @@
                 <div id="registerMsg" class="message"></div>
                 <form id="registerForm">
                     <label>Your Full Name</label>
-                    <input type="text" name="full_name" placeholder="e.g. Maria Santos" required>
+                    <input type="text" name="full_name" placeholder="e.g. Ederlyn Sarmiento" required>
                     
                     <label>Email Address</label>
                     <input type="email" name="email" placeholder="your@email.com" required>
@@ -68,7 +68,6 @@
     </div>
 
     <script>
-        // ✅ YOUR PHP HOST — DON'T CHANGE THIS LINE
         const PHP_HOST = "https://eds.page.gd";
 
         function openModal(id){ document.getElementById(id).style.display='block'; }
@@ -85,16 +84,20 @@
             el.className = 'message ' + (isSuccess ? 'success' : 'error');
         }
 
-        // Login — sends to eds.page.gd/login.php
+        // LOGIN
         document.getElementById('loginForm').addEventListener('submit', function(e){
             e.preventDefault();
             showMessage('loginMsg', 'Checking... ⏳');
             
             fetch(`${PHP_HOST}/login.php`, {
                 method: 'POST',
+                credentials: 'include',  // ✅ Critical for sessions
                 body: new FormData(this)
             })
-            .then(r => r.json())
+            .then(r => {
+                if (!r.ok) throw new Error("Server error: " + r.status);
+                return r.json();
+            })
             .then(data => {
                 if(data.success){
                     showMessage('loginMsg', `Welcome back, ${data.full_name}! ✅ Redirecting...`, true);
@@ -104,21 +107,25 @@
                 }
             })
             .catch(err => {
-                console.error(err);
-                showMessage('loginMsg', '❌ Cannot connect to eds.page.gd — check files there');
+                console.error('Login error:', err);
+                showMessage('loginMsg', '❌ Connection error: ' + err.message);
             });
         });
 
-        // Register — sends to eds.page.gd/register.php
+        // REGISTER
         document.getElementById('registerForm').addEventListener('submit', function(e){
             e.preventDefault();
             showMessage('registerMsg', 'Creating account... ⏳');
             
             fetch(`${PHP_HOST}/register.php`, {
                 method: 'POST',
+                credentials: 'include',  // ✅ Critical for sessions
                 body: new FormData(this)
             })
-            .then(r => r.json())
+            .then(r => {
+                if (!r.ok) throw new Error("Server error: " + r.status);
+                return r.json();
+            })
             .then(data => {
                 if(data.success){
                     showMessage('registerMsg', `Welcome, ${data.full_name}! ✅ Redirecting...`, true);
@@ -128,8 +135,8 @@
                 }
             })
             .catch(err => {
-                console.error(err);
-                showMessage('registerMsg', '❌ Cannot connect to eds.page.gd — check files there');
+                console.error('Register error:', err);
+                showMessage('registerMsg', '❌ Connection error: ' + err.message);
             });
         });
     </script>
