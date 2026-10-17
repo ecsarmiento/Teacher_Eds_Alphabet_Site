@@ -1,0 +1,35 @@
+* { box-sizing: border-box; font-family: 'Comic Sans MS', cursive, sans-serif; }
+body {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    min-height: 100vh;
+    margin: 0; padding: 20px;
+}
+.container { max-width: 1000px; margin: 0 auto; }
+h1 { color: #ff6b6b; text-align: center; font-size: 2.5em; }
+.lesson-card {
+    background: white; border-radius: 20px; padding: 20px; margin: 15px 0;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.3s;
+}
+.lesson-card:hover { transform: scale(1.03); }
+.letter {
+    display: inline-block; width: 60px; height: 60px; line-height: 60px;
+    background: #ffd93d; border-radius: 50%; text-align: center; font-size: 1.8em;
+    margin: 5px; cursor: pointer; transition: 0.2s;
+}
+.letter:hover { background: #ff6b6b; color: white; }
+button {
+    background: #4ecdc4; border: none; border-radius: 25px; padding: 12px 30px;
+    font-size: 1.1em; cursor: pointer; margin: 5px;
+}
+.modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background: white; margin: 10% auto; padding: 30px; border-radius: 20px;
+    width: 90%; max-width: 400px;
+}
+input {
+    width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #ddd;
+    border-radius: 10px; font-size: 1em;
+}
