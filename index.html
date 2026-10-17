@@ -23,7 +23,7 @@
             <div class="modal-box">
                 <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
                 <h2>Welcome Back! 👋</h2>
-                <form action="login.php" method="POST">
+                <form action="https://YOUR-PHP-HOST/login.php" method="POST">
                     <label>Email Address</label>
                     <input type="email" name="email" placeholder="your@email.com" required>
                     
@@ -41,7 +41,7 @@
             <div class="modal-box">
                 <span class="close-btn" onclick="closeModal('registerModal')">&times;</span>
                 <h2>Join Our Learning Family 🎓</h2>
-                <form action="register.php" method="POST">
+                <form action="https://YOUR-PHP-HOST/register.php" method="POST">
                     <label>Your Full Name</label>
                     <input type="text" name="full_name" placeholder="e.g. Maria Santos" required>
                     
@@ -70,7 +70,6 @@
         function closeModal(id){ document.getElementById(id).style.display='none'; }
         function switchModal(from,to){ closeModal(from); openModal(to); }
         
-        // Close when clicking outside box
         window.onclick = function(e){
             if(e.target.classList.contains('modal')) e.target.style.display='none';
         }
