@@ -4,51 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard — Learn A to Z</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        *{box-sizing:border-box;font-family:system-ui,sans-serif;}
+        body{background:#f0f4f8;padding:20px;max-width:900px;margin:0 auto;}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;padding-bottom:15px;border-bottom:2px solid #ddd;}
+        .greeting{font-size:18px;font-weight:600;}
+        .signout-link{color:#e07a5f;text-decoration:none;font-weight:500;}
+        h2{margin-top:30px;border-left:4px solid #4a90d9;padding-left:12px;}
+        .lesson-grid,.game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:15px;margin-top:15px;}
+        .lesson-card,.game-card{background:white;padding:20px;border-radius:12px;text-decoration:none;color:#333;box-shadow:0 2px 6px rgba(0,0,0,0.08);transition:transform 0.2s;}
+        .lesson-card:hover,.game-card:hover{transform:translateY(-3px);}
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="top-bar">
-            <span class="greeting">Checking access... 🔄</span>
-            <a href="https://eds.page.gd/signout.php" id="signoutLink" class="signout-link" style="display:none;">Sign Out</a>
-        </div>
+    <div class="top-bar">
+        <span class="greeting">Checking access... 🔄</span>
+        <a href="#" id="signoutLink" class="signout-link" style="display:none;">Sign Out</a>
+    </div>
 
-        <h1>Let's Learn! 📚</h1>
-        
-        <h2>📖 Lessons</h2>
-        <div class="lesson-grid">
-            <a href="lessons/lesson1.html" class="lesson-card">Lesson 1: The Alphabet</a>
-            <a href="lessons/lesson2.html" class="lesson-card">Lesson 2: Phonics & Blending</a>
-            <a href="lessons/lesson3.html" class="lesson-card">Lesson 3: Animals A–Z</a>
-            <a href="lessons/lesson4.html" class="lesson-card">Lesson 4: Things A–Z</a>
-            <a href="lessons/lesson5.html" class="lesson-card">Lesson 5: Countries A–Z</a>
-            <a href="lessons/lesson6.html" class="lesson-card">Lesson 6: Names A–Z</a>
-            <a href="lessons/lesson7.html" class="lesson-card">Lesson 7: Fruits A–Z</a>
-        </div>
+    <h1>Let's Learn! 📚</h1>
+    
+    <h2>📖 Lessons</h2>
+    <div class="lesson-grid">
+        <a href="#" class="lesson-card">Lesson 1: The Alphabet</a>
+        <a href="#" class="lesson-card">Lesson 2: Phonics & Blending</a>
+        <a href="#" class="lesson-card">Lesson 3: Animals A–Z</a>
+        <a href="#" class="lesson-card">Lesson 4: Things A–Z</a>
+        <a href="#" class="lesson-card">Lesson 5: Countries A–Z</a>
+        <a href="#" class="lesson-card">Lesson 6: Names A–Z</a>
+        <a href="#" class="lesson-card">Lesson 7: Fruits A–Z</a>
+    </div>
 
-        <h2>🎮 Games</h2>
-        <div class="game-grid">
-            <a href="games/game1.html" class="game-card">1. Crossword</a>
-            <a href="games/game2.html" class="game-card">2. Guess the Word</a>
-            <a href="games/game3.html" class="game-card">3. Word Puzzle</a>
-            <a href="games/game4.html" class="game-card">4. Guess the Missing Letter</a>
-            <a href="games/game5.html" class="game-card">5. Letter Sound Match</a>
-            <a href="games/game6.html" class="game-card">6. Beginning Sound Sort</a>
-            <a href="games/game7.html" class="game-card">7. Alphabet Order Race</a>
-            <a href="games/game8.html" class="game-card">8. Blend & Read</a>
-            <a href="games/game9.html" class="game-card">9. Letter Detective</a>
-            <a href="games/game10.html" class="game-card">10. My First Dictionary</a>
-        </div>
+    <h2>🎮 Games</h2>
+    <div class="game-grid">
+        <a href="#" class="game-card">1. Crossword</a>
+        <a href="#" class="game-card">2. Guess the Word</a>
+        <a href="#" class="game-card">3. Word Puzzle</a>
+        <a href="#" class="game-card">4. Guess the Missing Letter</a>
+        <a href="#" class="game-card">5. Letter Sound Match</a>
+        <a href="#" class="game-card">6. Beginning Sound Sort</a>
+        <a href="#" class="game-card">7. Alphabet Order Race</a>
+        <a href="#" class="game-card">8. Blend & Read</a>
+        <a href="#" class="game-card">9. Letter Detective</a>
+        <a href="#" class="game-card">10. My First Dictionary</a>
     </div>
 
     <script>
         const PHP_HOST = "https://eds.page.gd";
 
+        // Sign out handler
+        document.getElementById("signoutLink").addEventListener("click", function(e){
+            e.preventDefault();
+            fetch(`${PHP_HOST}/signout.php`, {
+                method: 'GET',
+                credentials: 'include',
+                mode: 'cors'
+            }).then(() => {
+                window.location.href = "index.html";
+            });
+        });
+
+        // Check session
         fetch(`${PHP_HOST}/check_session.php`, {
-            credentials: 'include'  // ✅ Critical — sends session cookie
+            credentials: 'include',
+            mode: 'cors'
         })
         .then(res => {
-            if (!res.ok) throw new Error("Server unreachable");
+            if (!res.ok) throw new Error("Server unreachable: " + res.status);
             return res.json();
         })
         .then(data => {
