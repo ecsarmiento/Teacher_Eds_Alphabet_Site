@@ -3,34 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Alphabet & Phonics — Grades 1–3</title>
+    <title>Learn A to Z — Kids Alphabet & Phonics</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <header>
+        <header class="hero">
             <h1>🌟 Learn A to Z — Fun & Free! 🌟</h1>
-            <p>For Grades 1–3 | Free for Teachers & Parents</p>
+            <p>Grades 1–3 • Free for Teachers & Parents • Interactive with Sound & Pictures</p>
         </header>
 
-        <div class="auth-buttons">
-            <button onclick="showLogin()">Sign In</button>
-            <button onclick="showRegister()">Sign Up</button>
+        <div class="auth-choice">
+            <button class="auth-btn signin-btn" onclick="openModal('loginModal')">🔑 Sign In</button>
+            <button class="auth-btn signup-btn" onclick="openModal('registerModal')">✏️ Sign Up</button>
         </div>
 
-        <!-- Login Modal -->
+        <!-- LOGIN MODAL -->
         <div id="loginModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
+            <div class="modal-box">
+                <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
                 <h2>Welcome Back! 👋</h2>
                 <form action="login.php" method="POST">
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <input type="password" name="password" placeholder="Password" required>
-                    <button type="submit">Sign In</button>
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="your@email.com" required>
+                    
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Your password" required>
+                    
+                    <button type="submit" class="submit-btn">Sign Me In</button>
                 </form>
+                <p class="switch-link">New here? <a href="#" onclick="switchModal('loginModal','registerModal')">Create an account</a></p>
+            </div>
+        </div>
+
+        <!-- REGISTER MODAL -->
+        <div id="registerModal" class="modal">
+            <div class="modal-box">
+                <span class="close-btn" onclick="closeModal('registerModal')">&times;</span>
+                <h2>Join Our Learning Family 🎓</h2>
+                <form action="register.php" method="POST">
+                    <label>Your Full Name</label>
+                    <input type="text" name="full_name" placeholder="e.g. Maria Santos" required>
+                    
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="your@email.com" required>
+                    
+                    <label>Create Password</label>
+                    <input type="password" name="password" placeholder="At least 6 characters" required>
+                    
+                    <label>I am a:</label>
+                    <select name="role" required>
+                        <option value="">-- Please choose --</option>
+                        <option value="teacher">🏫 Teacher</option>
+                        <option value="parent">🏠 Parent</option>
+                    </select>
+                    
+                    <button type="submit" class="submit-btn">Create My Account</button>
+                </form>
+                <p class="switch-link">Already have an account? <a href="#" onclick="switchModal('registerModal','loginModal')">Sign in here</a></p>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        function openModal(id){ document.getElementById(id).style.display='block'; }
+        function closeModal(id){ document.getElementById(id).style.display='none'; }
+        function switchModal(from,to){ closeModal(from); openModal(to); }
+        
+        // Close when clicking outside box
+        window.onclick = function(e){
+            if(e.target.classList.contains('modal')) e.target.style.display='none';
+        }
+    </script>
 </body>
 </html>
