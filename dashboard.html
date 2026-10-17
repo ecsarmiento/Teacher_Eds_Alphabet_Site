@@ -9,8 +9,8 @@
 <body>
     <div class="container">
         <div class="top-bar">
-            <span class="greeting">Hello! 👋</span>
-            <a href="https://YOUR-PHP-HOST/signout.php" class="signout-link">Sign Out</a>
+            <span class="greeting">Checking access... 🔄</span>
+            <a href="https://eds.page.gd/signout.php" id="signoutLink" class="signout-link" style="display:none;">Sign Out</a>
         </div>
 
         <h1>Let's Learn! 📚</h1>
@@ -42,23 +42,28 @@
     </div>
 
     <script>
-        const PHP_HOST = "https://YOUR-PHP-HOST";
+        // ✅ Your actual PHP hosting domain — already filled in!
+        const PHP_HOST = "https://eds.page.gd";
 
         // Check if user is signed in
         fetch(`${PHP_HOST}/check_session.php`)
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error("Server not reachable");
+            return res.json();
+        })
         .then(data => {
             if (!data.signed_in) {
-                alert("Please sign in first!");
+                alert("⚠️ Please sign in first!");
                 window.location.href = "index.html";
             } else {
                 document.querySelector(".greeting").textContent = 
                     `Hello, ${data.full_name}! 🎉`;
+                document.getElementById("signoutLink").style.display = "inline";
             }
         })
         .catch(err => {
             console.error("Session check failed:", err);
-            alert("Unable to connect to server. Please try again.");
+            alert("❌ Cannot connect to server.\nMake sure these files exist on eds.page.gd:\n- check_session.php\n- login.php\n- register.php\n- signout.php");
         });
     </script>
 </body>
