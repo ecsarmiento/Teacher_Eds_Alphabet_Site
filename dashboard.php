@@ -1,11 +1,3 @@
-<?php
-session_start();
-// Block access if NOT signed in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: index.html");
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,10 +8,9 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 <body>
     <div class="container">
-        <!-- Top Bar -->
         <div class="top-bar">
-            <span class="greeting">Hello, <?php echo $_SESSION['full_name']; ?>! 🎉</span>
-            <a href="signout.php" class="signout-link">Sign Out</a>
+            <span class="greeting">Hello! 👋</span>
+            <a href="https://YOUR-PHP-HOST/signout.php" class="signout-link">Sign Out</a>
         </div>
 
         <h1>Let's Learn! 📚</h1>
@@ -41,8 +32,34 @@ if (!isset($_SESSION['user_id'])) {
             <a href="games/game2.html" class="game-card">2. Guess the Word</a>
             <a href="games/game3.html" class="game-card">3. Word Puzzle</a>
             <a href="games/game4.html" class="game-card">4. Guess the Missing Letter</a>
-            <!-- Games 5–10 here -->
+            <a href="games/game5.html" class="game-card">5. Letter Sound Match</a>
+            <a href="games/game6.html" class="game-card">6. Beginning Sound Sort</a>
+            <a href="games/game7.html" class="game-card">7. Alphabet Order Race</a>
+            <a href="games/game8.html" class="game-card">8. Blend & Read</a>
+            <a href="games/game9.html" class="game-card">9. Letter Detective</a>
+            <a href="games/game10.html" class="game-card">10. My First Dictionary</a>
         </div>
     </div>
+
+    <script>
+        const PHP_HOST = "https://YOUR-PHP-HOST";
+
+        // Check if user is signed in
+        fetch(`${PHP_HOST}/check_session.php`)
+        .then(res => res.json())
+        .then(data => {
+            if (!data.signed_in) {
+                alert("Please sign in first!");
+                window.location.href = "index.html";
+            } else {
+                document.querySelector(".greeting").textContent = 
+                    `Hello, ${data.full_name}! 🎉`;
+            }
+        })
+        .catch(err => {
+            console.error("Session check failed:", err);
+            alert("Unable to connect to server. Please try again.");
+        });
+    </script>
 </body>
 </html>
