@@ -1,61 +1,176 @@
-* { box-sizing: border-box; font-family: 'Comic Sans MS', cursive, sans-serif; }
+/* Message notification styles */
+.message {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+}
+.message.success {
+    display: block;
+    background: #d4edda;
+    color: #155724;
+}
+.message.error {
+    display: block;
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Global styles */
+* {
+    box-sizing: border-box;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
 body {
     background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
     min-height: 100vh;
-    margin: 0; padding: 20px;
+    margin: 0;
+    padding: 20px;
 }
-.container { max-width: 1000px; margin: 0 auto; }
-.hero { text-align: center; padding: 30px 0; }
-h1 { color: #ff6b6b; font-size: 2.5em; margin-bottom: 10px; }
-.hero p { font-size: 1.2em; color: #555; }
-
-.auth-choice { text-align: center; margin: 30px 0; }
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.hero {
+    text-align: center;
+    padding: 30px 0;
+}
+.hero h1 {
+    color: #ff6b6b;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+.hero p {
+    font-size: 1.2em;
+    color: #555;
+}
+.auth-choice {
+    text-align: center;
+    margin: 30px 0;
+}
 .auth-btn {
-    background: #4ecdc4; border: none; border-radius: 25px; padding: 14px 35px;
-    font-size: 1.1em; cursor: pointer; margin: 8px; transition: transform 0.2s;
+    background: #4ecdc4;
+    border: none;
+    border-radius: 25px;
+    padding: 14px 35px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin: 8px;
+    transition: transform 0.2s;
 }
-.auth-btn:hover { transform: scale(1.05); }
-.signup-btn { background: #ffd93d; color: #333; }
-
+.auth-btn:hover {
+    transform: scale(1.05);
+}
+.signup-btn {
+    background: #ffd93d;
+    color: #333;
+}
 .modal {
-    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5); animation: fadeIn 0.3s;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s;
 }
-@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 .modal-box {
-    background: white; margin: 5% auto; padding: 30px; border-radius: 20px;
-    width: 90%; max-width: 420px; position: relative;
+    background: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 420px;
+    position: relative;
 }
 .close-btn {
-    position: absolute; top: 15px; right: 20px; font-size: 1.5em;
-    cursor: pointer; color: #999;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #999;
 }
-.close-btn:hover { color: #333; }
-label { display: block; margin: 15px 0 5px; font-weight: bold; color: #444; }
+.close-btn:hover {
+    color: #333;
+}
+label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+    color: #444;
+}
 input, select {
-    width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 10px;
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
     font-size: 1em;
 }
 .submit-btn {
-    width: 100%; background: #ff6b6b; color: white; border: none;
-    border-radius: 25px; padding: 14px; font-size: 1.1em; margin-top: 20px; cursor: pointer;
+    width: 100%;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 14px;
+    font-size: 1.1em;
+    margin-top: 20px;
+    cursor: pointer;
 }
-.switch-link { margin-top: 15px; text-align: center; }
-.switch-link a { color: #4ecdc4; text-decoration: none; font-weight: bold; }
-
+.switch-link {
+    margin-top: 15px;
+    text-align: center;
+}
+.switch-link a {
+    color: #4ecdc4;
+    text-decoration: none;
+    font-weight: bold;
+}
 .top-bar {
-    background: white; padding: 15px 25px; border-radius: 15px; margin-bottom: 25px;
-    display: flex; justify-content: space-between; align-items: center;
+    background: white;
+    padding: 15px 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.signout-link { color: #ff6b6b; font-weight: bold; text-decoration: none; }
-
+.greeting {
+    font-weight: bold;
+    color: #333;
+}
+.signout-link {
+    color: #ff6b6b;
+    font-weight: bold;
+    text-decoration: none;
+}
+h2 {
+    color: #4ecdc4;
+    margin: 30px 0 15px;
+}
 .lesson-grid, .game-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
     margin: 20px 0 40px;
 }
 .lesson-card, .game-card {
-    background: white; border-radius: 15px; padding: 20px; text-align: center;
-    text-decoration: none; color: #333; box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
     transition: transform 0.2s;
 }
-.lesson-card:hover, .game-card:hover { transform: translateY(-5px); }
+.lesson-card:hover, .game-card:hover {
+    transform: translateY(-5px);
+}
