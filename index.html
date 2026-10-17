@@ -68,7 +68,7 @@
     </div>
 
     <script>
-        // ✅ Your PHP host — already correct!
+        // ✅ YOUR PHP HOST — DON'T CHANGE THIS LINE
         const PHP_HOST = "https://eds.page.gd";
 
         function openModal(id){ document.getElementById(id).style.display='block'; }
@@ -85,7 +85,7 @@
             el.className = 'message ' + (isSuccess ? 'success' : 'error');
         }
 
-        // Login
+        // Login — sends to eds.page.gd/login.php
         document.getElementById('loginForm').addEventListener('submit', function(e){
             e.preventDefault();
             showMessage('loginMsg', 'Checking... ⏳');
@@ -103,10 +103,13 @@
                     showMessage('loginMsg', '❌ ' + data.error);
                 }
             })
-            .catch(() => showMessage('loginMsg', '❌ Connection error. Check files on eds.page.gd'));
+            .catch(err => {
+                console.error(err);
+                showMessage('loginMsg', '❌ Cannot connect to eds.page.gd — check files there');
+            });
         });
 
-        // Register
+        // Register — sends to eds.page.gd/register.php
         document.getElementById('registerForm').addEventListener('submit', function(e){
             e.preventDefault();
             showMessage('registerMsg', 'Creating account... ⏳');
@@ -124,7 +127,10 @@
                     showMessage('registerMsg', '❌ ' + data.error);
                 }
             })
-            .catch(() => showMessage('registerMsg', '❌ Connection error. Check files on eds.page.gd'));
+            .catch(err => {
+                console.error(err);
+                showMessage('registerMsg', '❌ Cannot connect to eds.page.gd — check files there');
+            });
         });
     </script>
 </body>
