@@ -23,7 +23,8 @@
             <div class="modal-box">
                 <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
                 <h2>Welcome Back! 👋</h2>
-                <form action="https://YOUR-PHP-HOST/login.php" method="POST">
+                <div id="loginMsg" class="message"></div>
+                <form id="loginForm">
                     <label>Email Address</label>
                     <input type="email" name="email" placeholder="your@email.com" required>
                     
@@ -41,7 +42,8 @@
             <div class="modal-box">
                 <span class="close-btn" onclick="closeModal('registerModal')">&times;</span>
                 <h2>Join Our Learning Family 🎓</h2>
-                <form action="https://YOUR-PHP-HOST/register.php" method="POST">
+                <div id="registerMsg" class="message"></div>
+                <form id="registerForm">
                     <label>Your Full Name</label>
                     <input type="text" name="full_name" placeholder="e.g. Maria Santos" required>
                     
@@ -66,13 +68,64 @@
     </div>
 
     <script>
+        // ✅ Your PHP host — already correct!
+        const PHP_HOST = "https://eds.page.gd";
+
         function openModal(id){ document.getElementById(id).style.display='block'; }
         function closeModal(id){ document.getElementById(id).style.display='none'; }
         function switchModal(from,to){ closeModal(from); openModal(to); }
         
         window.onclick = function(e){
             if(e.target.classList.contains('modal')) e.target.style.display='none';
+        };
+
+        function showMessage(elId, text, isSuccess){
+            const el = document.getElementById(elId);
+            el.textContent = text;
+            el.className = 'message ' + (isSuccess ? 'success' : 'error');
         }
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            showMessage('loginMsg', 'Checking... ⏳');
+            
+            fetch(`${PHP_HOST}/login.php`, {
+                method: 'POST',
+                body: new FormData(this)
+            })
+            .then(r => r.json())
+            .then(data => {
+                if(data.success){
+                    showMessage('loginMsg', `Welcome back, ${data.full_name}! ✅ Redirecting...`, true);
+                    setTimeout(() => window.location.href = 'dashboard.html', 1200);
+                } else {
+                    showMessage('loginMsg', '❌ ' + data.error);
+                }
+            })
+            .catch(() => showMessage('loginMsg', '❌ Connection error. Check files on eds.page.gd'));
+        });
+
+        // Register
+        document.getElementById('registerForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            showMessage('registerMsg', 'Creating account... ⏳');
+            
+            fetch(`${PHP_HOST}/register.php`, {
+                method: 'POST',
+                body: new FormData(this)
+            })
+            .then(r => r.json())
+            .then(data => {
+                if(data.success){
+                    showMessage('registerMsg', `Welcome, ${data.full_name}! ✅ Redirecting...`, true);
+                    setTimeout(() => window.location.href = 'dashboard.html', 1200);
+                } else {
+                    showMessage('registerMsg', '❌ ' + data.error);
+                }
+            })
+            .catch(() => showMessage('registerMsg', '❌ Connection error. Check files on eds.page.gd'));
+        });
     </script>
 </body>
 </html>
